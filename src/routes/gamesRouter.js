@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { getAllGames,getByStrings,createGame } from "../controlles/gamesController.js";
+import { getByCharacters,createGame } from "../controlles/gamesController.js";
+import { verificaCaracteres,validaCriacaoGame } from "../middlewares/gamesMiddlewares.js";
 
-const gamesRouter = Router()
+const gamesRouter = Router();
 
-gamesRouter.get("/games",getAllGames)
-gamesRouter.get("/games/?stringGame",getByStrings)
-gamesRouter.post("/games",createGame)
+gamesRouter.get("/games?",verificaCaracteres,getByCharacters);
+gamesRouter.post("/games",validaCriacaoGame,createGame);
 
-export default gamesRouter
+export default gamesRouter;

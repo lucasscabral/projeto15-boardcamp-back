@@ -9,7 +9,6 @@ export async function validateBody(req,res,next){
     }
     try {
         const {rows : categoria} = await connection.query(`SELECT * FROM categories WHERE name = $1 ;`,[req.body.name]);
-        console.log(categoria)
         if(categoria.length > 0){
             res.sendStatus(409)
             return
