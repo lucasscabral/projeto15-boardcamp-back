@@ -65,7 +65,6 @@ export async function validaBody (req,res,next){
 export async function validaBodyUpdate(req,res,next){
     const updateId = req.params.updateId;
     const validou = validateCustomers.validate(req.body);
-    console.log(validou)
     const name = req.body.name;
     const phone = req.body.phone;
     const cpf = req.body.cpf;

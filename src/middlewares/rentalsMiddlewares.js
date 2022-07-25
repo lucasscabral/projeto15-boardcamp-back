@@ -36,7 +36,7 @@ export async function metodosDeBuscaAlugueis(req,res,next){
                                                                             JOIN(SELECT id,name FROM customers) customers
                                                                             ON rentals."customerId" = customers.id
                                                                             JOIN (SELECT id,name,"categoryId" FROM games) games
-                                                                            ON rentals."gameId" = games.id;
+                                                                            ON rentals."gameId" = games.id
                                                                             WHERE "customerId" = $1;`,[customerId]);
           
             if(AlugueisDoClienteSelec.length === 0){
@@ -59,7 +59,7 @@ export async function metodosDeBuscaAlugueis(req,res,next){
                                                                             JOIN(SELECT id,name FROM customers) customers
                                                                             ON rentals."customerId" = customers.id
                                                                             JOIN (SELECT id,name,"categoryId" FROM games) games
-                                                                            ON rentals."gameId" = games.id;
+                                                                            ON rentals."gameId" = games.id
                                                                             WHERE "gameId" = $1;`,[gameId]);
 
             if(AlugueisDoGameSelec.length === 0){
@@ -123,10 +123,11 @@ export async function retornoDoAluguel(req,res,next){
             res.status(404).send("Esse aluguel não existe");
             return;
         }
-        
+        const devolucaoAluguel = dayjs().format("YYYY/MM/DD");
+        await connection.query(`UPDATE rentals SET "returnDate" = $1,"delayFee" = 0;`,[devolucaoAluguel])
+
         next();
     } catch (error) {
-        console.log(error)
         res.sendStatus(500);
     }
 }

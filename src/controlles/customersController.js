@@ -24,7 +24,6 @@ export async function insertCustomers (req,res){
 
     try {
         const {rows: cpfExistente} = await connection.query(`SELECT * FROM customers WHERE cpf = $1`,[cpf]);
-        console.log(cpfExistente)
         if(cpfExistente.length > 0){
             res.status(409).send("Esse CPF já esta em uso");
             return;
@@ -33,7 +32,6 @@ export async function insertCustomers (req,res){
         await connection.query(`INSERT INTO customers(name,phone,cpf,birthday) VALUES($1,$2,$3,$4);`,[name,phone,cpf,birthday]);
         res.sendStatus(201);
     } catch (error) {
-        console.log(error)
         res.sendStatus(500);
     }
 };

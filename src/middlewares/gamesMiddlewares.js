@@ -23,7 +23,6 @@ export async function verificaCaracteres(req,res,next){
             return;
         }
     } catch (error) {
-        console.log(error)
         res.send(error)
     }
  
